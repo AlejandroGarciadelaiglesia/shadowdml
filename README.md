@@ -46,7 +46,9 @@ First is needed to install python and then install dependencies needed:
 
     pip3 install -r requirements.txt
 
-After that, execute the following script in the apiml folder:
+After that, it is needed to update the 0.0.0.0 ip address in all ocurrences in the Blacklist.cpp file for the private ip of the machine where the API REST will be deployed.
+
+Finally, execute the following script in the apiml folder:
 
     ./launch.sh
 
