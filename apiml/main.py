@@ -17,19 +17,19 @@ from sklearn.decomposition import TruncatedSVD
 from joblib import dump, load
 import time
 
-
+'''
+    Base class for the API REST
+'''
 class Parameters(BaseModel):
     get_value: Optional[str] = None,
     post_value: Optional[str] = None,
     time_value: Optional[str] = None
 
-
+'''
+    Divides a string into 2-grams
+'''
 def get2Grams(payload_obj):
-    '''Divides a string into 2-grams
     
-    Example: input - payload: "<script>"
-             output- ["<s","sc","cr","ri","ip","pt","t>"]
-    '''
     payload = str(payload_obj)
     ngrams = []
     for i in range(0,len(payload)-2):
@@ -42,10 +42,7 @@ app = FastAPI()
 @app.post("/parameters/")
 async def root (myParameters: Parameters):
 
-    if myParameters.time_value is not None:
-        with open('times_waf.txt', 'a') as f:
-            f.write(str(myParameters.time_value) + "\n")
-        return
+    # Loading the tf-idf vectorizer information
 
     vectorizer = load('tfidf_vectorizer.joblib') 
     tfidf_vectorizer = TfidfVectorizer(tokenizer=get2Grams, vocabulary=vectorizer)
@@ -55,15 +52,14 @@ async def root (myParameters: Parameters):
     else:
         param = myParameters.get_value
     
+    # Code for predict new entries
+
     payloads_tfidf = tfidf_vectorizer.fit_transform(np.array([param])) 
 
     poly = load('2grams.joblib') 
     poly_pred = poly.predict(payloads_tfidf)
 
-    with open('result_ml.txt', 'a') as f:
-        f.write(str(param) + "ç" + str(poly_pred[0]) + "\n")
-    
-    print(str(poly_pred[0]))
+    # Api rest response
 
     if poly_pred[0] == "LEGAL" :
         return "LEGAL"

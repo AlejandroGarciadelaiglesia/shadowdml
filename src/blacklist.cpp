@@ -66,6 +66,12 @@ void swd::blacklist::scan(const swd::request_ptr& request) const {
             }
         }
 
+        /******
+            In this part of de code, GET and POST parameters are filtered and they are sent to the API REST in Python
+            with the machine learning algorithm. In the json body of the answer the machine learning algorithm 
+            categorization appears. If it is not legal, the parameter is marked as an attack
+        *******/
+
         if ( (each_path.find("GET") != std::string::npos) ) {
 
             // GET request
