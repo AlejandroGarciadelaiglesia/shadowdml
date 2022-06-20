@@ -40,7 +40,7 @@ The installer copies the configuration file to */etc/shadowd/shadowd.ini*. The f
 # Machine learning functionalities
 This functionality allows to distinguish any GET or POST parameter between four possible classes: legitimate request, cross site scripting, shell injection and sql injection
 
-If the user want to use a machine learning functionality based on a support vector machines algorithm, it is needed to deploy an API REST in python using in the local machine of the shadowd project
+If the user want to use a machine learning functionality based on a support vector machines algorithm, it is needed to deploy an API REST in python in the local machine of the shadowd project
 
 First is needed to install python and then install dependencies needed:
 
