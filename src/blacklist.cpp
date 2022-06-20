@@ -77,7 +77,7 @@ void swd::blacklist::scan(const swd::request_ptr& request) const {
             // GET request
             strData = "{\"get_value\" : \"" + each_value + "\"}";
             RequestHeaders.emplace("Content-Type", "application/json");
-            m_pHTTPClient->Post("http://192.168.1.157:8081/parameters", RequestHeaders, strData, ServerResponseGet);
+            m_pHTTPClient->Post("http://0.0.0.0:8081/parameters", RequestHeaders, strData, ServerResponseGet);
             if ( !(ServerResponseGet.strBody.find("LEGAL") != std::string::npos) ){
                 parameter->set_threat(true);
                 parameter->set_critical_blacklist_impact(true);
@@ -88,7 +88,7 @@ void swd::blacklist::scan(const swd::request_ptr& request) const {
             // POST request
             strData = "{\"post_value\" : \""  + each_value +  "\"}";
             RequestHeaders.emplace("Content-Type", "application/json");
-            m_pHTTPClient->Post("http://192.168.1.157:8081/parameters", RequestHeaders, strData, ServerResponsePost);
+            m_pHTTPClient->Post("http://0.0.0.0:8081/parameters", RequestHeaders, strData, ServerResponsePost);
             if ( !(ServerResponsePost.strBody.find("LEGAL") != std::string::npos) ){
                 parameter->set_threat(true);
                 parameter->set_critical_blacklist_impact(true);
